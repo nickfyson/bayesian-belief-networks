@@ -1,4 +1,6 @@
 '''Tests for the examples in examples/gaussian_bayesian_networks'''
+
+from __future__ import print_function
 from bayesian.gaussian_bayesian_network import build_graph
 from bayesian.examples.gaussian_bayesian_networks.river import (
     f_a, f_b, f_c, f_d)
@@ -28,4 +30,4 @@ class TestRiverExample():
 
     def test_query(self, river_graph):
         r = river_graph.query(a=7)
-        print r
+        print(r)

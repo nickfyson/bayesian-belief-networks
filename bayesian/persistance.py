@@ -1,4 +1,8 @@
 '''Handle Persistance of Pre-generated Samples'''
+
+from __future__ import print_function
+
+from __future__ import absolute_import
 import os
 import sqlite3
 
@@ -45,13 +49,13 @@ def domains_to_metadata(domains):
     vals: A string representing the sqlite data type
     (i.e 'integer' for bool and 'varchar' for str)'''
     metadata = dict()
-    for k, v in domains.items():
+    for k, v in list(domains.items()):
         # Assume that all values in the domain
         # are of the same type. TODO: verify this!
         try:
             metadata[k.name] = P2S_MAPPING[type(v[0])]
         except KeyError:
-            print k, v
+            print(k, v)
             raise UnsupportedTypeException
     return metadata
 
@@ -74,13 +78,13 @@ def initialize_sample_db(conn, metadata):
     to be categorical and are mapped
     to varchar'''
     type_specs = []
-    for column, sqlite_type in metadata.items():
+    for column, sqlite_type in list(metadata.items()):
         type_specs.append((column, sqlite_type))
     SQL = '''
         CREATE TABLE samples (%s);
     ''' % ','.join(['%s %s' % (col, type_) for col, type_ in type_specs])
     cur = conn.cursor()
-    print SQL
+    print(SQL)
     cur.execute(SQL)
 
 
@@ -112,7 +116,7 @@ def build_row_factory(conn):
                 raise UnsupportedTypeException(
                     'A column in the SQLite samples '
                     'database has an unsupported type. '
-                    'Supported types are %s. ' % str(S2P_MAPPING.keys()))
+                    'Supported types are %s. ' % str(list(S2P_MAPPING.keys())))
         return row_dict
 
     return row_factory
@@ -135,7 +139,7 @@ class SampleDB(object):
         '''
         evidence_cols = []
         evidence_vals = []
-        for k, v in kwds.items():
+        for k, v in list(kwds.items()):
             evidence_cols.append('%s=?' % k)
             if isinstance(v, bool):
                 # Cast booleans to integers
@@ -177,10 +181,10 @@ class SampleDB(object):
             self.commit()
 
     def commit(self):
-        print 'Committing....'
+        print('Committing....')
         try:
             self.conn.commit()
             self.insert_count = 1
         except:
-            print 'Commit to db file failed...'
+            print('Commit to db file failed...')
             raise

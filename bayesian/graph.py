@@ -1,4 +1,6 @@
 '''Generic Graph Classes'''
+
+from __future__ import absolute_import
 from StringIO import StringIO
 
 class Node(object):
@@ -40,7 +42,7 @@ class Graph(object):
         variable name as a secondary sort'''
         l = []
         l_set = set() # For speed
-        s = [n for n in self.nodes.values() if not n.parents]
+        s = [n for n in list(self.nodes.values()) if not n.parents]
         s.sort(reverse=True, key=lambda x:x.variable_name)
         while s:
             n = s.pop()

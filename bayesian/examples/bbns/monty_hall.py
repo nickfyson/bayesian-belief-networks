@@ -1,4 +1,6 @@
 '''The Monty Hall Problem Modelled as a Bayesian Belief Network'''
+
+from __future__ import print_function
 from bayesian.bbn import *
 
 '''
@@ -62,7 +64,7 @@ if __name__ == '__main__':
     # Initial Marginals without any knowledge.
     # Observe that the likelihood for
     # all three doors is 1/3.
-    print 'Initial Marginal Probabilities:'
+    print('Initial Marginal Probabilities:')
     g.q()
     # Now suppose the guest chooses
     # door A and Monty chooses door B.

@@ -1,3 +1,5 @@
+from __future__ import print_function
+from __future__ import absolute_import
 import pytest
 
 from itertools import product as xproduct
@@ -274,8 +276,8 @@ class TestGaussian():
                 [12, 13, 28, 42]],
             names=['a', 'b', 'c', 'd'])
         sigma_xx, sigma_xy, sigma_yx, sigma_yy = sigma.split('a')
-        print sigma_xx
-        print sigma_xy
+        print(sigma_xx)
+        print(sigma_xy)
         for name in ['b', 'c', 'd']:
             assert name in sigma_xx.names
             assert name in sigma_xy.names

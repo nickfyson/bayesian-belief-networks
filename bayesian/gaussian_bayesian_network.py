@@ -1,4 +1,8 @@
 '''Classes for pure Gaussian Bayesian Networks'''
+
+from __future__ import print_function
+
+from __future__ import absolute_import
 import math
 import types
 from functools import wraps
@@ -151,7 +155,7 @@ class GaussianBayesianGraph(Graph):
 
         # Ensure the evidence variables are actually
         # present
-        invalid_vars = [v for v in kwds.keys() if v not in self.nodes]
+        invalid_vars = [v for v in list(kwds.keys()) if v not in self.nodes]
         if invalid_vars:
             raise VariableNotInGraphError(invalid_vars)
 
@@ -161,7 +165,7 @@ class GaussianBayesianGraph(Graph):
         result = dict()
         result['evidence'] = kwds
 
-        for k, v in kwds.items():
+        for k, v in list(kwds.items()):
             x = MeansVector([[v]], names=[k])
             sigma_yy, sigma_yx, sigma_xy, sigma_xx = (
                 sigma.split(k))
@@ -190,11 +194,11 @@ class GaussianBayesianGraph(Graph):
         mu = result['joint']['mu']
         sigma = result['joint']['sigma']
         evidence = result['evidence']
-        print 'Evidence: %s' % str(evidence)
-        print 'Covariance Matrix:'
-        print sigma
-        print 'Means:'
-        print mu
+        print('Evidence: %s' % str(evidence))
+        print('Covariance Matrix:')
+        print(sigma)
+        print('Means:')
+        print(mu)
 
 
     def discover_sample_ordering(self):
@@ -206,7 +210,7 @@ class GaussianBayesianGraph(Graph):
         fh.write('digraph G {\n')
         fh.write('  graph [ dpi = 300 bgcolor="transparent" rankdir="LR"];\n')
         edges = set()
-        for node in sorted(self.nodes.values(), key=lambda x:x.name):
+        for node in sorted(list(self.nodes.values()), key=lambda x:x.name):
             fh.write('  %s [ shape="ellipse" color="blue"];\n' % node.name)
             for child in node.children:
                 edge = (node.name, child.name)
@@ -250,17 +254,17 @@ def build_gbn(*args, **kwds):
     # factors do not correctly represent
     # a valid network. This will be fixed
     # in next release
-    original_factors = get_original_factors(factor_nodes.values())
-    for var_name, factor in original_factors.items():
+    original_factors = get_original_factors(list(factor_nodes.values()))
+    for var_name, factor in list(original_factors.items()):
         factor.variable_name = var_name
-    for factor_node in factor_nodes.values():
+    for factor_node in list(factor_nodes.values()):
         factor_args = get_args(factor_node)
         parents = [original_factors[arg] for arg in
                    factor_args if original_factors[arg] != factor_node]
         for parent in parents:
             connect(parent, factor_node)
     # Now process the raw_betas to create a dict
-    for factor_node in factor_nodes.values():
+    for factor_node in list(factor_nodes.values()):
         # Now we want betas to always be a dict
         # but in the case that the node only
         # has one parent we will allow the user to specify

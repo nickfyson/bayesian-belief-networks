@@ -1,4 +1,6 @@
 '''Tests for the small backup linera algebra module'''
+
+from __future__ import absolute_import
 import pytest
 
 from bayesian.linear_algebra import *
