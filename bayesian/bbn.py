@@ -7,7 +7,10 @@ import copy
 import heapq
 
 from random import random, choice
-from StringIO import StringIO
+try:
+    from StringIO import StringIO
+except ImportError:
+    from io import StringIO
 from itertools import combinations, product
 from collections import defaultdict
 

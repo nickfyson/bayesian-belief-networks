@@ -1,7 +1,10 @@
 '''Generic Graph Classes'''
 
 from __future__ import absolute_import
-from StringIO import StringIO
+try:
+    from StringIO import StringIO
+except ImportError:
+    from io import StringIO
 
 class Node(object):
 

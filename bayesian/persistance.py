@@ -15,6 +15,12 @@ class SampleDBNotFoundException(Exception):
     pass
 
 
+try:
+    unicode_class = unicode
+except NameError:
+    unicode_class = str
+
+
 COMMIT_THRESHOLD = 1000
 
 # Python data type to SQLite data type mapping
@@ -27,13 +33,13 @@ COMMIT_THRESHOLD = 1000
 P2S_MAPPING = {
     bool: 'bool',
     str: 'varchar',
-    unicode: 'varchar',
+    unicode_class: 'varchar',
     int: 'integer'}
 
 
 S2P_MAPPING = {
     'bool': bool,
-    'varchar': unicode,
+    'varchar': unicode_class,
     'integer': int}
 
 

@@ -12,7 +12,10 @@ import random
 
 from collections import defaultdict
 from itertools import product as iter_product
-from Queue import Queue
+try:
+    from Queue import Queue
+except ImportError:
+    from queue import Queue
 
 import sqlite3
 from prettytable import PrettyTable
