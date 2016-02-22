@@ -747,7 +747,7 @@ def test_discover_sample_ordering():
          fMontyDoor_node])
 
     assert graph.verify() is True
-    ordering = graph.discover_sample_ordering()
+    ordering = list(graph.discover_sample_ordering())
     assert len(ordering) == 3
     assert ordering[0][0].name == 'ActualDoor'
     assert ordering[0][1].__name__ == 'fActualDoor'

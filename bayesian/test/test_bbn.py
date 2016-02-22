@@ -304,9 +304,9 @@ class TestBBN():
              huang_darwiche_moralized.nodes])
         pq = construct_priority_queue(nodes, priority_func)
         assert pq == [[0, 2, 'f_f'], [0, 2, 'f_h'],
-                      [1, 2, 'f_b'], [1, 2, 'f_a'],
-                      [1, 2, 'f_g'], [2, 2, 'f_d'],
-                      [2, 2, 'f_c'], [7, 2, 'f_e']]
+                      [1, 2, 'f_a'], [1, 2, 'f_b'],
+                      [1, 2, 'f_g'], [2, 2, 'f_c'],
+                      [2, 2, 'f_d'], [7, 2, 'f_e']]
 
         # Note that for this test we want to ensure
         # the same elimination ordering as on page 13

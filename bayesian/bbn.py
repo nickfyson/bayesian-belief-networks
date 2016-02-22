@@ -860,9 +860,9 @@ def priority_func(node):
 def construct_priority_queue(nodes, priority_func=priority_func):
     pq = []
     for node_name, node in nodes.items():
-        entry = priority_func(node) + [node.name]
+        entry = priority_func(node) + [str(node.name)]
         heapq.heappush(pq, entry)
-    return pq
+    return [heapq.heappop(pq) for _ in range(len(pq))]
 
 
 def record_cliques(cliques, cluster):
